@@ -8,8 +8,7 @@ export const RESUME_DATA: ResumeData = {
     phone: "", // Placeholder
     location: "Atlanta, Georgia, United States",
     summary: "Cybersecurity Expert | Driving SOAR & Threat Intelligence Solutions at Cyware | Former Security Consultant | Splunk & SIEM Specialist",
-    // LINKING THE IMAGE HERE:
-    avatarUrl: "profile.jpg", 
+    avatarUrl: "profile.jpg", // Make sure this file exists in your public folder or root if using standalone
     socials: [
       { platform: "LinkedIn", url: "https://www.linkedin.com/in/himanshu-dubey-2ab62062/", icon: "Linkedin" }
     ]
@@ -120,27 +119,6 @@ export const RESUME_DATA: ResumeData = {
     ]
   },
 
-  /** 
-   * =========================================================
-   * BLOG POSTS SECTION
-   * =========================================================
-   * 
-   * HOW TO ADD A NEW BLOG POST:
-   * 1. Upload your .md file to your GitHub repository (e.g., in a 'posts' folder).
-   * 2. Click on the file in GitHub, then click "Raw" to get the raw URL.
-   * 3. Copy the object below and paste it into the `blogPosts` array.
-   * 
-   * TEMPLATE:
-   * {
-   *   id: "unique-id-here",
-   *   title: "Your Blog Title",
-   *   excerpt: "A short summary...",
-   *   date: "Month Day, Year",
-   *   readTime: "5 min read",
-   *   tags: ["Tag1", "Tag2"],
-   *   markdownUrl: "https://raw.githubusercontent.com/YOUR_USER/YOUR_REPO/main/posts/your-file.md"
-   * }
-   */
   blogPosts: [
     {
       id: "1",
@@ -149,37 +127,40 @@ export const RESUME_DATA: ResumeData = {
       date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
       readTime: "2 min read",
       tags: ["Guide", "GitHub", "Markdown"],
-      // Use the 'content' field for short text, OR 'markdownUrl' for long files hosted on GitHub
       content: `
 # Managing Your Cybersecurity Blog
 
 This platform is designed to let you share your expertise in Threat Intelligence, SOAR, and Security Architecture.
 
-## Adding New Posts
+## 1. Adding a Cover Image
+You can add a main image to your post by providing an image URL in the \`image\` field in \`constants.ts\`.
 
-You can host your blog content directly on GitHub, making it easy to write in Markdown and publish instantly.
+## 2. Adding Screenshots in Text
+You can easily add screenshots inside your markdown content.
 
-### Step 1: Write your content
-Create a \`.md\` file for your article. For example, \`threat-intel-101.md\`.
+### Option A: Using Local Images (Recommended for 'content')
+1. Upload your image to the \`public/\` folder in GitHub.
+2. Reference it like this:
+\`![Screenshot Description](/my-image-name.png)\`
 
-### Step 2: Host it
-Upload this file to a GitHub repository (e.g., \`your-username/my-portfolio/posts\`).
-
-### Step 3: Link it
-In \`constants.ts\`, add a new entry to the \`blogPosts\` array using the **Raw** URL of your file:
-
-\`\`\`typescript
-{
-  id: "2",
-  title: "The Future of SOAR",
-  excerpt: "Exploring the impact of automation on modern SOCs...",
-  date: "Nov 15, 2023",
-  readTime: "5 min read",
-  tags: ["SOAR", "Automation"],
-  markdownUrl: "https://raw.githubusercontent.com/yourusername/my-portfolio/main/posts/future-of-soar.md"
-}
-\`\`\`
+### Option B: Using External Images (For 'markdownUrl')
+If you are fetching a markdown file from GitHub, use the **absolute URL** for images:
+\`![Screenshot](https://raw.githubusercontent.com/username/repo/main/public/images/screenshot.png)\`
       `
-    }
+    },
+    
+    // TEMPLATE FOR NEW POSTS
+    /*
+    {
+      id: "2",
+      title: "YOUR TITLE HERE",
+      excerpt: "Short summary...",
+      date: "Month Day, Year",
+      readTime: "5 min read",
+      tags: ["Tag1", "Tag2"],
+      image: "/optional-cover-image.jpg", // OPTIONAL: Path to image in public folder
+      markdownUrl: "PASTE_YOUR_GITHUB_RAW_URL_HERE"
+    },
+    */
   ]
 };
