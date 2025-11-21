@@ -148,6 +148,16 @@ If you are fetching a markdown file from GitHub, use the **absolute URL** for im
 \`![Screenshot](https://raw.githubusercontent.com/username/repo/main/public/images/screenshot.png)\`
       `
     },
+    {
+      id: "2",
+      title: "Build a Personal Website with AI and GitHub",
+      excerpt: "You can host your own free website",
+      date: "Nov 20, 2025",
+      readTime: "5 min read",
+      tags: ["website", "github"],
+      image: "https://cdn.mos.cms.futurecdn.net/gHfBJ6FBHKnLbW36hEDvgV-1200-80.png.webp", // OPTIONAL: Path to image in public folder
+      markdownUrl: "https://github.com/himanshudby/himanshudby.github.io/blob/main/blogs/Personal-Website-with-AI.md"
+    }
     
     // TEMPLATE FOR NEW POSTS
     /*
