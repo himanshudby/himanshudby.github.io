@@ -4,7 +4,7 @@ import {
   Github, Linkedin, Twitter, Mail, MapPin, 
   Camera, Mountain, Coffee, User, Globe,
   Sparkles, Heart, Lightbulb, ArrowRight, BookOpen, Calendar, Clock, Briefcase, ArrowLeft, Loader2,
-  Shield, Cpu, Lock, Terminal, Server, Activity
+  Shield, Cpu, Lock, Terminal, Server, Activity, Link, Check
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { BlogPost } from './types';
@@ -23,6 +23,22 @@ const App: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [postContent, setPostContent] = useState<string>('');
   const [isPostLoading, setIsPostLoading] = useState(false);
+  const [copySuccess, setCopySuccess] = useState('');
+
+  // --- DEEP LINKING LOGIC ---
+  useEffect(() => {
+    // Check URL params on load to open specific post
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('post');
+    
+    if (postId) {
+        const post = blogPosts.find(p => p.id === postId);
+        if (post) {
+            setActiveTab('blog');
+            setSelectedPost(post);
+        }
+    }
+  }, [blogPosts]);
 
   // Handle fetch for external markdown
   useEffect(() => {
@@ -52,9 +68,27 @@ const App: React.FC = () => {
     }
   }, [selectedPost]);
 
+  const handlePostClick = (post: BlogPost) => {
+    setSelectedPost(post);
+    // Update URL without reloading
+    const newUrl = window.location.pathname + '?post=' + post.id;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+  };
+
   const handleBackToBlog = () => {
     setSelectedPost(null);
     setPostContent("");
+    // Reset URL
+    const newUrl = window.location.pathname;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+  };
+
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        setCopySuccess('Link copied!');
+        setTimeout(() => setCopySuccess(''), 2000);
+    });
   };
 
   return (
@@ -281,7 +315,7 @@ const App: React.FC = () => {
                       {blogPosts.map((post) => (
                         <article 
                             key={post.id} 
-                            onClick={() => setSelectedPost(post)}
+                            onClick={() => handlePostClick(post)}
                             className="group bg-white/50 hover:bg-white border border-white/60 rounded-3xl p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden cursor-pointer"
                         >
                           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-purple-50 rounded-bl-[4rem] -mr-8 -mt-8 z-0 group-hover:scale-110 transition-transform duration-500"></div>
@@ -331,15 +365,28 @@ const App: React.FC = () => {
                 {/* Blog Detail View */}
                 {activeTab === 'blog' && selectedPost && (
                    <div className="animate-in fade-in slide-in-from-right-8 duration-500">
-                       <button 
-                         onClick={handleBackToBlog}
-                         className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 mb-8 group transition-colors font-medium"
-                       >
-                           <div className="p-2 bg-white/50 rounded-full group-hover:bg-indigo-50 border border-white/50 group-hover:border-indigo-100 transition-all">
-                             <ArrowLeft className="w-4 h-4" />
-                           </div>
-                           Back to all posts
-                       </button>
+                       <div className="flex items-center justify-between mb-8">
+                         <button 
+                           onClick={handleBackToBlog}
+                           className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 group transition-colors font-medium"
+                         >
+                             <div className="p-2 bg-white/50 rounded-full group-hover:bg-indigo-50 border border-white/50 group-hover:border-indigo-100 transition-all">
+                               <ArrowLeft className="w-4 h-4" />
+                             </div>
+                             Back to all posts
+                         </button>
+                         
+                         <button 
+                            onClick={copyToClipboard}
+                            className="flex items-center gap-2 text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors border border-indigo-100/50"
+                         >
+                             {copySuccess ? (
+                                 <><Check className="w-3 h-3" /> {copySuccess}</>
+                             ) : (
+                                 <><Link className="w-3 h-3" /> Copy Link</>
+                             )}
+                         </button>
+                       </div>
 
                        <article className="bg-white/50 rounded-3xl p-8 sm:p-10 border border-white/60 relative overflow-hidden">
                            {/* Header */}
