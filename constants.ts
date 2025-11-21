@@ -159,19 +159,5 @@ If you are fetching a markdown file from GitHub, use the **absolute URL** for im
       // Note: Converted 'github.com/blob' to 'raw.githubusercontent.com' for correct fetching
       markdownUrl: "https://raw.githubusercontent.com/himanshudby/himanshudby.github.io/main/blogs/Personal-Website-with-AI.md"
     }
-    
-    // TEMPLATE FOR NEW POSTS
-    /*
-    {
-      id: "2",
-      title: "YOUR TITLE HERE",
-      excerpt: "Short summary...",
-      date: "Month Day, Year",
-      readTime: "5 min read",
-      tags: ["Tag1", "Tag2"],
-      image: "/optional-cover-image.jpg", // OPTIONAL: Path to image in public folder
-      markdownUrl: "PASTE_YOUR_GITHUB_RAW_URL_HERE"
-    },
-    */
   ]
 };
