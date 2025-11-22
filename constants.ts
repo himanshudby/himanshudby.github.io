@@ -158,6 +158,34 @@ If you are fetching a markdown file from GitHub, use the **absolute URL** for im
       image: "https://cdn.mos.cms.futurecdn.net/gHfBJ6FBHKnLbW36hEDvgV-1200-80.png.webp",
       // Note: Converted 'github.com/blob' to 'raw.githubusercontent.com' for correct fetching
       markdownUrl: "https://raw.githubusercontent.com/himanshudby/himanshudby.github.io/main/blogs/Personal-Website-with-AI.md"
+    },
+    {
+      id: "3",
+      title: "Test Blog",
+      excerpt: "This sample post explains how to add new cybersecurity articles to your portfolio using GitHub.",
+      date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      readTime: "2 min read",
+      tags: ["Guide", "GitHub", "Markdown"],
+      content: `
+# Managing Your Cybersecurity Blog
+
+This platform is designed to let you share your expertise in Threat Intelligence, SOAR, and Security Architecture.
+
+## 1. Adding a Cover Image
+You can add a main image to your post by providing an image URL in the \`image\` field in \`constants.ts\`.
+
+## 2. Adding Screenshots in Text
+You can easily add screenshots inside your markdown content.
+
+### Option A: Using Local Images (Recommended for 'content')
+1. Upload your image to the \`public/\` folder in GitHub.
+2. Reference it like this:
+\`![Screenshot Description](/my-image-name.png)\`
+
+### Option B: Using External Images (For 'markdownUrl')
+If you are fetching a markdown file from GitHub, use the **absolute URL** for images:
+\`![Screenshot](https://raw.githubusercontent.com/username/repo/main/public/images/screenshot.png)\`
+      `
     }
   ]
 };
