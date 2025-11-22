@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Himanshu Dubey - Solutions Manager</title>
     
-    <!-- 1. Load Libraries -->
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -13,7 +12,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- 2. Configure Tailwind -->
     <script>
       tailwind.config = {
         theme: {
@@ -33,7 +31,6 @@
       }
     </script>
 
-    <!-- 3. Styles -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
@@ -45,17 +42,21 @@
 <body>
     <div id="root"></div>
 
-    <!-- 4. React Application -->
     <script type="text/babel">
         const { useState, useEffect } = React;
 
         // --- DATA ---
+        // NOTE: This data block now contains ALL blog posts from constants.ts.
+        // To add a new post, you should update the 'blogPosts' array here or in constants.ts.
         const RESUME_DATA = {
           personalInfo: {
             name: "Himanshu Dubey",
             title: "Solutions Manager | Cybersecurity Expert",
+            email: "himanshu.dubey@example.com", // Placeholder
+            phone: "", // Placeholder
             location: "Atlanta, Georgia, United States",
-            avatarUrl: "profile.jpg", 
+            summary: "Cybersecurity Expert | Driving SOAR & Threat Intelligence Solutions at Cyware | Former Security Consultant | Splunk & SIEM Specialist",
+            avatarUrl: "profile.jpg", // Make sure this file exists in your public folder or root if using standalone
             socials: [
               { platform: "LinkedIn", url: "https://www.linkedin.com/in/himanshu-dubey-2ab62062/", icon: "linkedin" }
             ]
@@ -123,6 +124,35 @@
               ]
             }
           ],
+          education: [
+            {
+              institution: "University of Technology",
+              degree: "Bachelor of Technology",
+              period: "2010 - 2014",
+              details: "Computer Science & Engineering"
+            }
+          ],
+          skills: [
+            {
+              category: "Security Operations",
+              items: ["SOAR", "Cyber Threat Intelligence (CTI)", "SIEM", "Incident Response", "Vulnerability Assessment"]
+            },
+            {
+              category: "Tools & Platforms",
+              items: ["Cyware", "Splunk", "RSA Security Analytics", "Qualys", "HP Tipping Point"]
+            },
+            {
+              category: "Core Competencies",
+              items: ["Threat Analysis", "Security Architecture", "Risk Management", "Security Consulting", "Automation"]
+            }
+          ],
+          projects: [
+            {
+              name: "Interactive Resume",
+              description: "A personalized portfolio website.",
+              technologies: ["React", "Tailwind CSS"]
+            }
+          ],
           aboutMe: {
             bio: [
               "Experienced in the cybersecurity field, I specialize in threat intelligence, cyber risk management, and security solutions architecture. My journey has led me to work with leading organizations, including Cyware, Optiv Inc., Cognizant, and Capgemini, where I have delivered solutions that help organizations stay ahead of evolving cyber threats.",
@@ -136,6 +166,7 @@
               { name: "Security Strategy", icon: "lock", description: "Fortifying organizational defenses." }
             ]
           },
+
           blogPosts: [
             {
               id: "1",
@@ -164,8 +195,46 @@ You can easily add screenshots inside your markdown content.
 If you are fetching a markdown file from GitHub, use the **absolute URL** for images:
 \`![Screenshot](https://raw.githubusercontent.com/username/repo/main/images/screenshot.png)\`
       `
+            },
+            {
+              id: "2",
+              title: "Build a Personal Website with AI and GitHub",
+              excerpt: "You can host your own free website",
+              date: "Nov 20, 2025",
+              readTime: "5 min read",
+              tags: ["website", "github"],
+              image: "https://cdn.mos.cms.futurecdn.net/gHfBJ6FBHKnLbW36hEDvgV-1200-80.png.webp",
+              // Note: Converted 'github.com/blob' to 'raw.githubusercontent.com' for correct fetching
+              markdownUrl: "https://raw.githubusercontent.com/himanshudby/himanshudby.github.io/main/blogs/Personal-Website-with-AI.md"
+            },
+            {
+              id: "3",
+              title: "Test Blog",
+              excerpt: "This sample post explains how to add new cybersecurity articles to your portfolio using GitHub.",
+              date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+              readTime: "2 min read",
+              tags: ["Guide", "GitHub", "Markdown"],
+              content: `
+# Managing Your Cybersecurity Blog
+
+This platform is designed to let you share your expertise in Threat Intelligence, SOAR, and Security Architecture.
+
+## 1. Adding a Cover Image
+You can add a main image to your post by providing an image URL in the \`image\` field.
+
+## 2. Adding Screenshots in Text
+You can easily add screenshots inside your markdown content.
+
+### Option A: Using Local Images
+1. Upload your image to the same folder as \`index.html\`.
+2. Reference it like this:
+\`![Screenshot Description](my-image-name.png)\`
+
+### Option B: Using External Images (For 'markdownUrl')
+If you are fetching a markdown file from GitHub, use the **absolute URL** for images:
+\`![Screenshot](https://raw.githubusercontent.com/username/repo/main/images/screenshot.png)\`
+      `
             }
-            // Add new posts here...
           ]
         };
 
@@ -244,6 +313,7 @@ If you are fetching a markdown file from GitHub, use the **absolute URL** for im
                                 setIsPostLoading(false);
                             });
                     } else {
+                        // Handle date object conversion for consistency with fetched data
                         setPostContent(marked.parse(selectedPost.content || ""));
                         setIsPostLoading(false);
                     }
